@@ -46,3 +46,10 @@ git --version
 
 5. That's all. The REST API will be available at http://localhost:8080;
 
+### Next Steps
+
+1. Implement endpoint to update a product;
+2. Add Swagger documentation;
+3. Swap database from H2 to a production ready database e.g. PostgreSQL, MySQL, etc;
+4. Deploy service on a cloud provider e.g. AWS, Azure, etc;
+
