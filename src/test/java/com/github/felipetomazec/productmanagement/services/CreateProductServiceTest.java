@@ -44,7 +44,7 @@ public class CreateProductServiceTest {
         });
 
         //When
-        var result = sut.execute(input);
+        var result = sut.createProduct(input);
 
         // Then
         assertEquals(newProductId, result.id());

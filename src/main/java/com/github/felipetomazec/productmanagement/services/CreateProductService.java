@@ -13,7 +13,7 @@ public class CreateProductService {
 
     private final ProductRepository productRepository;
 
-    public CreateProductResponse execute(CreateProductRequest input) {
+    public CreateProductResponse createProduct(CreateProductRequest input) {
         var product = Product.builder()
                 .name(input.name().trim())
                 .description(input.description().trim())
