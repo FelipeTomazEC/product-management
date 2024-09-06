@@ -43,8 +43,8 @@ configurations {
 tasks.register("integrationTest", Test) {
 	group = 'verification'
 	description = 'Runs integration tests'
-	testClassesDirs = integrationTestSourceSet.output.classesDirs
-	classpath = integrationTestSourceSet.runtimeClasspath
+	testClassesDirs = sourceSets["integration-test"].output.classesDirs
+	classpath = sourceSets["integration-test"].runtimeClasspath
 	useJUnitPlatform()
 
 	doFirst {
