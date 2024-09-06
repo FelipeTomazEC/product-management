@@ -3,11 +3,16 @@ package com.github.felipetomazec.productmanagement.api
 import com.github.felipetomazec.productmanagement.BaseIntegrationTest
 import com.github.felipetomazec.productmanagement.api.v1.product.create.CreateProductRequest
 import com.github.felipetomazec.productmanagement.api.v1.product.create.CreateProductResponse
-import com.github.felipetomazec.productmanagement.api.v1.product.create.EndpointsV1
+import com.github.felipetomazec.productmanagement.api.v1.EndpointsV1
+import com.github.felipetomazec.productmanagement.repositories.ProductRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import spock.lang.Unroll
 
 class CreateProductIntegrationTest extends BaseIntegrationTest {
+
+    @Autowired
+    ProductRepository repository
 
     @Unroll
     def "Missing #missingParam - BAD REQUEST"() {
@@ -35,6 +40,23 @@ class CreateProductIntegrationTest extends BaseIntegrationTest {
         "price"       | "Macbook Pro" | "Computer"    | null
     }
 
+    def "Negative price - BAD REQUEST"() {
+        given: "price is a negative number"
+        def requestBody = CreateProductRequest.builder()
+                .name("Mouse Logitech")
+                .description("USB mouse with additional control buttons")
+                .price(-0.15)
+                .build()
+
+        when:
+        def response = request()
+                .with().body(requestBody)
+                .when().post(EndpointsV1.CREATE_PRODUCT)
+
+        then:
+        response.statusCode == HttpStatus.BAD_REQUEST.value()
+    }
+
     def "Create product successfully"() {
         given: "request body has necessary params"
         def requestBody = CreateProductRequest.builder()
@@ -51,11 +73,11 @@ class CreateProductIntegrationTest extends BaseIntegrationTest {
         then:
         response.statusCode == HttpStatus.CREATED.value()
 
-        and: "product is saved in the database"
-        // TODO - Implement database check
-
         and: "new product id is returned"
         def responseBody = response.body().as(CreateProductResponse)
         Objects.nonNull(responseBody.id())
+
+        and: "product is saved in the database"
+        repository.findById(responseBody.id()).isPresent()
     }
 }

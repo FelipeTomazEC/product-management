@@ -1,6 +1,8 @@
 package com.github.felipetomazec.productmanagement
 
+import io.restassured.RestAssured
 import io.restassured.http.ContentType
+import io.restassured.parsing.Parser
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.http.MediaType
@@ -24,5 +26,9 @@ abstract class BaseIntegrationTest extends Specification {
                 .contentType(ContentType.JSON)
                 .config(config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)))
                 .log().all()
+    }
+
+    def setupSpec() {
+        RestAssured.defaultParser = Parser.JSON
     }
 }

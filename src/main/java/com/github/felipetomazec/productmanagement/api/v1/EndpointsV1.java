@@ -1,4 +1,4 @@
-package com.github.felipetomazec.productmanagement.api.v1.product.create;
+package com.github.felipetomazec.productmanagement.api.v1;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
