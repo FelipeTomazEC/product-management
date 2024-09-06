@@ -35,7 +35,7 @@ git --version
 1. Clone the repository to your local machine:
    `$ git clone https://github.com/FelipeTomazEC/product-management.git`
 
-2. Enter in the directory of the project:
+2. Enter the directory of the project:
    `$ cd product-management`
 
 3. Build the application:
