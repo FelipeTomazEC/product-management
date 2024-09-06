@@ -18,7 +18,11 @@ class FindAllProductsIntegrationTest extends BaseIntegrationTest {
 
     ThreadLocalRandom random = ThreadLocalRandom.current()
 
-    def cleanup() {
+    def setup() {
+        productRepository.deleteAll()
+    }
+
+    def cleanupSpec() {
         productRepository.deleteAll()
     }
 
